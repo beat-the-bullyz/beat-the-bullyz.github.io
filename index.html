@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Epilogue by TEMPLATED</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body>
+
+		<!-- Header -->
+		<header id="header" class="alt">
+			<div class="inner">
+				<h1>Beat The Bullyz</h1>
+				<p>A free responsive site template by <a href="https://templated.co">TEMPLATED</a></p>
+			</div>
+		</header>
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<section class="main items">
+				<article class="item">
+					<!-- <header>
+						<a href="#"><img src="images/pic01.jpg" alt="" /></a>
+						<h3>Feugiat et faucibus</h3>
+					</header>
+					<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
+					<ul class="actions">
+						<li><a href="#" class="button">More</a></li>
+					</ul> -->
+
+					<h2>Submit your story</h2>
+					<textarea id="story" rows="7"></textarea>
+					<br/>
+					<button title="Submit" onclick="createChart()" style="size: 10px">Submit</button>
+				</article>
+				<article class="item">
+					<!-- <header>
+						<a href="#"><img src="images/pic02.jpg" alt="" /></a>
+						<h3>Blandit adipiscing</h3>
+					</header>
+					<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
+					<ul class="actions">
+						<li><a href="#" class="button">More</a></li>
+					</ul> -->
+
+					<div id="container"></div>
+				</article>
+				<!-- <article class="item">
+					<header>
+						<a href="#"><img src="images/pic03.jpg" alt="" /></a>
+						<h3>Lorem massa nulla</h3>
+					</header>
+					<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
+					<ul class="actions">
+						<li><a href="#" class="button">More</a></li>
+					</ul>
+				</article>
+				<article class="item">
+					<header>
+						<a href="#"><img src="images/pic04.jpg" alt="" /></a>
+						<h3>Ipsum sed tempus</h3>
+					</header>
+					<p>Fusce malesuada efficitur venenatis. Pellentesque tempor leo sed massa hendrerit hendrerit. In sed feugiat est, eu congue elit. Ut porta magna vel felis sodales vulputate. Donec faucibus dapibus lacus non ornare.</p>
+					<ul class="actions">
+						<li><a href="#" class="button">More</a></li>
+					</ul>
+				</article> -->
+			</section>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<ul class="icons">
+					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+					<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+				<p class="copyright">&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
+			</footer>
+
+		</div>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+			function createChart() {
+				var text = document.getElementById("story").value.toLowerCase();
+				
+				if(text !== null) {
+					var lines = text.split(/[,\. ]+/g),
+						data = Highcharts.reduce(lines, function (arr, word) {
+							var obj = Highcharts.find(arr, function (obj) {
+								return obj.name === word;
+							});
+							if (obj) {
+								obj.weight += 1;
+							} else {
+								obj = {
+									name: word,
+									weight: 1
+								};
+								if(obj.name.length > 3) {
+									arr.push(obj);
+								}
+							}
+							return arr;
+						}, []);
+
+					Highcharts.chart('container', {
+						series: [{
+							type: 'wordcloud',
+							data: data,
+							name: 'Occurrences'
+						}],
+						title: {
+							text: ''
+						}
+					});
+				}
+			}
+        </script>
+	</body>
+</html>

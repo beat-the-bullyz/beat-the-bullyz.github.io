@@ -1,7 +1,7 @@
 <?php
 
-$user = 'root';
-$pass = '';
+$user = 'antibullyuser';
+$pass = 'mysqlbullyuser!@#';
 $db = 'anti_bullyzens_code';
 
 $conn = new mysqli('localhost', $user, $pass, $db) or die("Unable to connect");
